@@ -1,0 +1,58 @@
+nav{
+    background-color: #36D578;
+}
+img.logo{
+    height: 65px;
+    width: 65px;
+}
+.all {
+    display: inline-flex;
+}
+.page-footer{
+    background-color: #36D578;
+}
+.orange{
+    background-color: #009E96 !important;
+}
+.orange-text{
+    color: #00BB8E !important;
+}
+.webapp{
+    display: inline-flex;
+}
+.collection{
+    width: 300px;
+}
+.maps{
+    width:1000px;
+    height: 550px;
+}  
+.contenedor{
+    width: 300px;
+    height: 500px;
+    background: #fff;
+    overflow: auto;
+    font-family: 'Open Sans';
+    border-radius: 4px;
+}
+.contenedor h1{
+    font-size: 38px;
+    font-weight: 600;
+    color: black;
+}
+.contenedor hr{
+    background: #ff9d00;
+    width: 20%;
+    height: 5px;
+    border: none;
+    margin: 20px 0;
+    border-radius: 50px;
+}
+.contenedor::-webkit-scrollbar{
+    width: 7px;
+    background: gray;
+}
+.contenedor::-webkit-scrollbar-thumb-{
+    background: yellow;
+    border-radius:5px;
+}
