@@ -1,3 +1,6 @@
+html, body{
+    overflow: hidden;
+}
 nav{
     background-color: #36D578;
 }
@@ -18,41 +21,46 @@ img.logo{
     color: #00BB8E !important;
 }
 .webapp{
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 5px;
+    background-color: black;
 }
 .collection{
     width: 300px;
+    margin: 0;
 }
-.maps{
-    width:1000px;
-    height: 550px;
-}  
+
 .contenedor{
-    width: 300px;
-    height: 500px;
+    display: flex;
+    flex-direction: column;
+    object-fit: cover;
+    max-width: 99%;
+    height: 550px;
     background: #fff;
     overflow: auto;
     font-family: 'Open Sans';
     border-radius: 4px;
 }
-.contenedor h1{
-    font-size: 38px;
-    font-weight: 600;
-    color: black;
+.menu-routes-title{
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
 }
-.contenedor hr{
-    background: #ff9d00;
-    width: 20%;
-    height: 5px;
-    border: none;
-    margin: 20px 0;
-    border-radius: 50px;
+.menu-routes{
+    align-items: center;
+    margin-left: 80%;
+    background-color: #36D578;
+    overflow-y: auto;
 }
 .contenedor::-webkit-scrollbar{
     width: 7px;
-    background: gray;
+    background: black;
+    border-radius: 10px;
 }
 .contenedor::-webkit-scrollbar-thumb-{
-    background: yellow;
+    background: white;
     border-radius:5px;
 }
