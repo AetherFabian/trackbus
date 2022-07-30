@@ -1,59 +1,74 @@
 import React from 'react';
 import './../css/webapp.css'
-import { Map, GoogleApiWrapper } from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import Http from "../libs/trackBusApi";
+import { Link } from 'react-router-dom';
+//import Routes from '../components/routes';
 
 class TrackMaps extends React.Component {
+    state = {
+        title: '',
+        routes: [],
+        setSignalsState: [],
+        selectedRoute: '',
+    }
+
+    componentDidMount = () => {
+        this.getData();
+    };
+
+    getData = async () => {
+        const response = await Http.get_routes();
+        this.setState({ routes: response });
+    };
+
+    getSignals = async (name) => {
+        console.log(name);
+        const response = await Http.get_signals(name);
+        console.log(response);
+        this.setState({ setSignalsState: response, selectedRoute: name });
+    };
 
     render() {
         return (
-            <div class='map-container'>
-                <nav>
-                    <div class="nav-wrapper">
-                        <img src={process.env.PUBLIC_URL + "images/logo.png"} class="logo" alt="logo" />
-                        <a href="/" class="brand-logo">Track Bus</a>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="/feedback">Feedback</a></li>
-                        </ul>
-                    </div>
-                </nav>
-                <Map className="maps"
-                    google={this.props.google}
-                    zoom={13}
-                    style={{ width: '80%', height: '89%', position: 'relative' }}
-                    initialCenter={{ lat: 28.6575657, lng: -106.084936 }} />
-                <div class="menu-routes">
-                    <div class="menu-routes-title">
-                        <h5 style={{color:'#fff'}}>Bus Stops</h5>
-                    </div>
-                    <div class="collection col s4 contenedor">
-                        <a href="#!" class="collection-item">Ruta 1</a>
-                        <a href="#!" class="collection-item"><span class="new badge">4</span>Ruta 2</a>
-                        <a href="#!" class="collection-item">Ruta 3</a>
-                        <a href="#!" class="collection-item">Ruta 4</a>
-                        <a href="#!" class="collection-item">Ruta 5</a>
-                        <a href="" class="collection-item">Ruta 6</a>
-                        <a href="" class="collection-item">Ruta 7</a>
-                        <a href="" class="collection-item">Ruta 8</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
-                        <a href="" class="collection-item">Ruta 9</a>
+            <React.Fragment>
+                <div className='map-container'>
+                    <nav>
+                        <div className="nav-wrapper">
+                            <img src={process.env.PUBLIC_URL + "images/logo.png"} className="logo" alt="logo" />
+                            <a href="/" className="brand-logo">Track Bus</a>
+                            <ul id="nav-mobile" className="right hide-on-med-and-down">
+                                <li><a href="/feedback">Feedback</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <Map className="maps"
+                        google={this.props.google}
+                        zoom={12}
+                        style={{ width: '80%', height: '89%', position: 'relative' }}
+                        initialCenter={{ lat: 28.6575657, lng: -106.084936 }}>
+                        {this.state.setSignalsState.map((marker) => {
+                            return <Marker key={marker.spoted_at}
+                                position={{ lng: marker.cordinates_y, lat: marker.cordinates_x }} />
+                        })}
+                    </Map>
+                    <div className="menu-routes">
+                        <div className="menu-routes-title">
+                            <h5 style={{ color: '#fff' }}>Bus Stops</h5>
+                        </div>
+                        <div className="collection col s4 contenedor">
+                            {this.state.routes.map((route) => {
+                                return <Link className="collection-item" key={route.name} to={'#!'} onClick={() => this.getSignals(route.name)}>
+                                    {route.name}
+                                </Link>
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
+
 }
 
 export default GoogleApiWrapper({
