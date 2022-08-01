@@ -1,20 +1,23 @@
 import React from 'react';
 import './../css/webapp.css'
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import Http from "../libs/trackBusApi";
 import { Link } from 'react-router-dom';
 //import Routes from '../components/routes';
 
 class TrackMaps extends React.Component {
     state = {
-        title: '',
+        title: 'Track Bus',
         routes: [],
         setSignalsState: [],
         selectedRoute: '',
+        activateMarker: null,
+        time: '',
     }
 
     componentDidMount = () => {
         this.getData();
+        //this.timer();
     };
 
     getData = async () => {
@@ -23,11 +26,64 @@ class TrackMaps extends React.Component {
     };
 
     getSignals = async (name) => {
-        console.log(name);
-        const response = await Http.get_signals(name);
-        console.log(response);
-        this.setState({ setSignalsState: response, selectedRoute: name });
+        if (name !== '') {
+            const response = await Http.get_signals(name);
+            this.setState({ setSignalsState: response, selectedRoute: name });
+        }
+    }
+
+    /*handleActiveMarker = (marker) => {
+        if (marker === this.state.activateMarker) {
+            return;
+        }
+        this.setState({ activateMarker: marker });
+        return (<InfoWindow children={marker.cordinates_x} onCloseClick={() => this.setState({ activateMarker: null })}>
+            {marker.spoted_at}
+                </InfoWindow>);
+    };*/
+
+    timer = () => {
+        setTimeout(() => {
+            this.getSignals(this.state.selectedRoute);
+            this.timer();
+        }, 20000);
     };
+
+    timeWatch = () => {
+        const date = new Date();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        const second = date.getSeconds();
+        const time = `${hour}:${minute}:${second}`;
+        this.setState({time: time});
+        console.log(this.time);
+        this.timeWatch();
+    }
+
+
+    mapStyles =
+        [{
+            featureType: "all",
+            elementType: "labels",
+            stylers: [
+                { visibility: "off" }
+            ]
+        },
+        {
+            featureType: "road",
+            elementType: "labels",
+            stylers: [
+                { visibility: "on" }
+            ]
+        },
+        {
+            featureType: "administrative",
+            elementType: "labels",
+            stylers: [
+                { visibility: "on" }
+            ]
+        }];
+
 
     render() {
         return (
@@ -45,11 +101,33 @@ class TrackMaps extends React.Component {
                     <Map className="maps"
                         google={this.props.google}
                         zoom={12}
-                        style={{ width: '80%', height: '89%', position: 'relative' }}
+                        styles={this.mapStyles}
+                        style={{
+                            width: '80%',
+                            height: '89%',
+                            position: 'relative',
+                        }
+                        }
+                        onClick={() => this.setState({ activateMarker: null })}
                         initialCenter={{ lat: 28.6575657, lng: -106.084936 }}>
                         {this.state.setSignalsState.map((marker) => {
                             return <Marker key={marker.spoted_at}
-                                position={{ lng: marker.cordinates_y, lat: marker.cordinates_x }} />
+                                position={{ lng: marker.cordinates_y, lat: marker.cordinates_x }}
+                                icon={{
+                                    url: process.env.PUBLIC_URL + "images/marker.png",
+                                    size: new this.props.google.maps.Size(35, 50),
+                                    scaledSize: new this.props.google.maps.Size(35, 50),
+                                }}
+                                label={{
+                                    text: this.timeWatch(marker),
+                                    color: '#fff',
+                                    fontSize: '12px',
+                                    fontWeight: '10',
+                                }}
+                                animation={this.props.google.maps.Animation.DROP}
+                                onClick={(e) => this.handleActiveMarker(marker, e)}
+                            >
+                            </Marker>
                         })}
                     </Map>
                     <div className="menu-routes">
