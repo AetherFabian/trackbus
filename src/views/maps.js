@@ -15,6 +15,7 @@ class TrackMaps extends React.Component {
         activateMarker: null,
         visibility: false,
         buttonVisibility: false,
+        timer: new Date().getTime(),
     }
 
     popupCloseHandler = (e) => {
@@ -28,7 +29,10 @@ class TrackMaps extends React.Component {
 
     componentDidMount = () => {
         this.getData();
-    };
+        this.timeID = setInterval(() => {
+            this.setState({ timer: new Date().getTime() });
+        }, 1000);
+    }
 
     getData = async () => {
         const response = await Http.instance.get_routes();
@@ -80,7 +84,7 @@ class TrackMaps extends React.Component {
                 <div className='map-container'>
                     <nav>
                         <div className="nav-wrapper">
-                            <img src={process.env.PUBLIC_URL + "images/logo.png"} className="logo" alt="logo" />
+                            <img src={process.env.PUBLIC_URL + "images/logo.png"} className="logo" alt="logo" hrfe="/" />
                             <a href="/" className="brand-logo">Track Bus</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
                                 <li><a href="/feedback">Feedback</a></li>
@@ -101,6 +105,20 @@ class TrackMaps extends React.Component {
                             return <Marker
                                 key={marker.spoted_at}
                                 position={{ lng: marker.cordinates_y, lat: marker.cordinates_x }}
+                                icon={{
+                                    url: process.env.PUBLIC_URL + "images/marker.png",
+                                    size: new this.props.google.maps.Size(35, 50),
+                                    scaledSize: new this.props.google.maps.Size(35, 50),
+                                }}
+                                label={{
+                                   text:`${(parseInt(Math.abs(this.state.timer - new Date(`${new Date().getDate()} ${marker.spoted_at}`).getTime()) / (1000 * 60) % 60)).toString().length === 2 ? parseInt(Math.abs(this.state.timer - new Date(`${new Date().getDate()} ${marker.spoted_at}`).getTime()) / (1000 * 60) % 60):
+                                        `0${parseInt(Math.abs(this.state.timer - new Date(`${new Date().getDate()} ${marker.spoted_at}`).getTime()) / (1000 * 60) % 60)}`
+                                        }:${(parseInt(Math.abs(this.state.timer - new Date(`${new Date().getDate()} ${marker.spoted_at}`).getTime()) / (1000) % 60)).toString().length === 2 ? parseInt(Math.abs(this.state.timer - new Date(`${new Date().getDate()} ${marker.spoted_at}`).getTime()) / (1000) % 60):
+                                        `0${parseInt(Math.abs(this.state.timer - new Date(`${new Date().getDate()} ${marker.spoted_at}`).getTime()) / (1000) % 60)}`}`,
+                                    color: '#fff',
+                                    fontSize: '12px',
+                                    fontWeight: '10',
+                                }}
                                 onClick={() => this.handleToggleOpen(marker)}
                             >
                             </Marker>
