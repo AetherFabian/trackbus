@@ -48,9 +48,9 @@ class TrackMaps extends React.Component {
         if (name !== '') {
             const response = await Http.instance.get_signals(name);
             this.setState({ setSignalsState: response, selectedRoute: name });
-            /*this.timerID = setTimeout(() => {
+            this.timerID = setTimeout(() => {
                 this.getSignals(name);
-            }, 20000);*/
+            }, 20000);
         }
     }
 
