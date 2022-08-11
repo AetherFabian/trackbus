@@ -10,7 +10,6 @@ class Feedback extends React.Component {
     }
 
     handleSubmit = async (e) => {
-        console.log('entro')
         e.preventDefault();
         try {
             let res = await fetch("https://track-bus-nevsoft.herokuapp.com/feedback", {

@@ -21,7 +21,6 @@ export default class Http {
                 // a must be equal to b
                 return 0;
               });
-            console.log(response);
             return response
         }catch(err){
             throw new Error(err);
@@ -31,8 +30,7 @@ export default class Http {
     get_signals = async(name)=> {
         try{
             const request = await fetch (`${API}signals/${name}`);
-            const response = await request.json()
-            console.log(response)
+            const response = await request.json();
             return response
         }catch(err){
             throw new Error(err);

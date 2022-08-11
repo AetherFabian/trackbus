@@ -40,8 +40,6 @@ class TrackMaps extends React.Component {
     };
 
     getSignals = async (name) => {
-        console.log(name);
-        console.log(this.state.selectedRoute);
         if (name !== this.state.selectedRoute) {
             clearTimeout(this.timerID);
         }
