@@ -1,0 +1,81 @@
+.return {
+    width: 1px;
+    height: 1px;
+
+}
+
+#back {
+    color: #5a5a5a;
+}
+
+.form {
+    width: 30%;
+    height: 80%;
+    background: #e6e6e6;
+    border-radius: 8px;
+    box-shadow: 0 0 40px -10px #000;
+    margin: calc(40vh - 220px) auto;
+    padding: 20px 30px;
+    max-width: calc(100vw - 40px);
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.form h2 {
+    margin: 10px 0;
+    padding-bottom: 10px;
+    width: 78%;
+    color: #78788c;
+    border-bottom: 3px solid #78788c;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    resize: none;
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+    transition: all .3s;
+    border-bottom: 2px solid #bebed2;
+}
+
+.form input:focus {
+    border-bottom: 2px solid #78788c;
+}
+
+.form p:before {
+    content: attr(type);
+    display: block;
+    margin: 28px 0 0;
+    font-size: 14px;
+    color: #5a5a5a;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.form button{
+    margin-left: 23%;
+}
+
+.form button:hover {
+    background: #78788c;
+    color: #fff;
+}
+
+@media only screen and (min-width: 1024px) {
+}

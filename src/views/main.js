@@ -31,7 +31,7 @@ const MainPage = () => {
                             <div className="col s2"></div>
                             <a href="https://play.google.com" className="valign-wrapper" target="_blank" rel="noreferrer">
                                 <img src={process.env.PUBLIC_URL + "images/icons8-tienda-de-juegos-48.png"} alt="play store" />
-                                We are also avalaible on Google Store </a>
+                                We are available on Google Store </a>
                             <div className="col s2"></div>
                         </div>
                     </div>
@@ -57,15 +57,17 @@ const MainPage = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col l6 s12">
-                            <h5 className="white-text">Footer Content</h5>
-                            <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-                                content.
-                            </p>
+                            <h5 className="white-text">Project Repository</h5>
+                            <a className="grey-text text-lighten-4" href="https://github.com/JoshuaAv07/NevSoft_TrackBus">
+                                TrackBus
+                            </a>
                         </div>
                         <div className="col l4 offset-l2 s12">
-                            <h5 className="white-text">Links</h5>
+                            <h5 className="white-text">Contact Us</h5>
                             <ul>
-                                <li><a className="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                                <li><a className="grey-text text-lighten-3" href="https://twitter.com/Aether_Fabian">@AetherFabian</a></li>
+                                <li><a className="grey-text text-lighten-3" href="https://twitter.com/TurcoAV">@TurcoAV</a></li>
+                                <li><a className="grey-text text-lighten-3" href="https://twitter.com/GustavoVallado4">@GustavoVallado4</a></li>
                             </ul>
                         </div>
                     </div>
