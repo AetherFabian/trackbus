@@ -82,7 +82,7 @@ class TrackMaps extends React.Component {
                 <div className='map-container'>
                     <nav>
                         <div className="nav-wrapper">
-                            <img src={process.env.PUBLIC_URL + "images/logo.png"} className="logo" alt="logo" hrfe="/" />
+                            <img src={process.env.PUBLIC_URL + "images/Logo.png"} className="logo" alt="logo" hrfe="/" />
                             <a href="/" className="brand-logo">Track Bus</a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
                                 <li><a href="/feedback">Feedback</a></li>

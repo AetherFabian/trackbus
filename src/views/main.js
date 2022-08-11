@@ -7,7 +7,7 @@ const MainPage = () => {
         <div>
             <nav>
                 <div className="nav-wrapper">
-                    <img src={process.env.PUBLIC_URL + "images/logo.png"} className="logo responsive-img" alt="logo" />
+                    <img src={process.env.PUBLIC_URL + "images/Logo.png"} className="logo responsive-img" alt="logo" />
                     <React.Fragment><Link to={'/'} className="brand-logo">Track Bus</Link></React.Fragment>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><React.Fragment><Link to={'/feedback'}>Feedback</Link></React.Fragment></li>
